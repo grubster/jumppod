@@ -42,6 +42,14 @@ Pod::Spec.new do |s|
     jpn.dependency 'AFNetworking', '2.1.0'
   end
 
+  s.subspec 'JUMPData' do |jdt|
+    jdt.source_files = 'Pod/Classes/JUMPData/{Sources,Headers}/*.{h,m}', 'Pod/Classes/JUMPData/Libs/SBJSON/{Source,Headers}/*.{h,m}', 'Pod/Classes/JUMPData/Libs/GoogleToolboxForMac/{Source,Headers}/*.{h,m}'
+    jdt.public_header_files = 'Pod/Classes/JUMPData/Headers/*.h'
+    jdt.dependency 'JUMP/JUMPNetwork'
+    jdt.dependency 'JUMP/JUMPDatabase'
+    jdt.dependency 'SBJson', '4.0.1'
+  end
+
   s.subspec 'JUMPUserInterface' do |jui|
     jui.source_files = 'Pod/Classes/JUMPUserInterface/{Sources,Headers}/*.{h,m}'
     jui.public_header_files = 'Pod/Classes/JUMPUserInterface/Headers/*.h'
