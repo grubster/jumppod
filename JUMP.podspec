@@ -1,38 +1,50 @@
-#
-# Be sure to run `pod lib lint JUMP.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "JUMP"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of JUMP."
-  s.description      = <<-DESC
-                       An optional longer description of JUMP
+  s.version          = "1.0.0"
+  s.summary          = "a collection of classes in Objective-C to perform a series of tasks on iOS or Mac OS applications."
+  s.homepage         = "http://seqoy.github.io/jump/Docs/JUMP/html/index.html"
+  s.license          = 'Apache License'
+  s.author           = { "Paulo Oliveira" => "paulo@seqoy.com" }
+  s.source           = { :git => "https://github.com/grubster/JUMP.git", :tag => s.version.to_s }
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/JUMP"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-  s.license          = 'MIT'
-  s.author           = { "Pedro Souza" => "pedronicholas.souza@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/JUMP.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.platform     = :ios, '7.0'
-  s.requires_arc = true
+  s.platform     = :ios, '6.0'
+  s.requires_arc = false
 
   s.source_files = 'Pod/Classes'
   s.resource_bundles = {
     'JUMP' => ['Pod/Assets/*.png']
   }
+  s.public_header_files = 'Pod/Classes/**/*.h'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec 'JUMPCore' do |jpc|
+    jpc.source_files = 'Pod/Classes/JUMPCore/Sources/*.m'
+    jpc.public_header_files = 'Pod/Classes/JUMPCore/Headers/*.h'
+  end
+
+  s.subspec 'JUMPLogger' do |jpl|
+    jpl.source_files = 'Pod/Classes/JUMPLogger/Sources/*.m'
+    jpl.public_header_files = 'Pod/Classes/JUMPLogger/Headers/*.h', 'Pod/Classes/JUMPLogger/Libraries/Log4CocoaTouch/Headers/*.h'
+    jpl.dependency 'JUMP/JUMPCore'
+    jpl.dependency 'Log4Cocoa', '0.1'
+    jpl.dependency 'NSLogger', '1.5'
+  end
+
+  s.subspec 'JUMPDatabase' do |jpd|
+    jpd.source_files = 'Pod/Classes/JUMPDatabase/Sources/*.m', 'Pod/Classes/JUMPDatabase/Libraries/IAThreadSafeCoreData/Sources/*.m'
+    jpd.public_header_files = 'Pod/Classes/JUMPDatabase/Headers/*.h', 'Pod/Classes/JUMPDatabase/Libraries/IAThreadSafeCoreData/Headers/*.h'
+    jpd.dependency 'JUMP/JUMPCore'
+    jpd.dependency 'JUMP/JUMPLogger'
+  end
+
+  s.subspec 'JUMPNetwork' do |jpn|
+    jpn.source_files = 'Pod/Classes/JUMPNetwork/Sources/*.m'
+    jpn.public_header_files = 'Pod/Classes/JUMPNetwork/Headers/*.h'
+    jpn.dependency 'JUMP/JUMPLogger'
+    jpn.dependency 'AFNetworking', '2.1.0'
+  end
+
+  s.subspec 'JUMPUserInterface' do |jui|
+    jui.source_files = 'Pod/Classes/JUMPUserInterface/Sources/*.m'
+    jui.public_header_files = 'Pod/Classes/JUMPUserInterface/Headers/*.h'
+  end
 end
