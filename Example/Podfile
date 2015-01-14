@@ -1,8 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
-
-target 'JUMP', :exclusive => true do
-  pod "JUMP", :path => "../"
-
-  
-end
