@@ -17,12 +17,12 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Pod/Classes/**/*.h'
 
   s.subspec 'JUMPCore' do |jpc|
-    jpc.source_files = 'Pod/Classes/JUMPCore/Sources/*.m'
+    jpc.source_files = 'Pod/Classes/JUMPCore/Sources/*.{h,m}'
     jpc.public_header_files = 'Pod/Classes/JUMPCore/Headers/*.h'
   end
 
   s.subspec 'JUMPLogger' do |jpl|
-    jpl.source_files = 'Pod/Classes/JUMPLogger/Sources/*.m'
+    jpl.source_files = 'Pod/Classes/JUMPLogger/Sources/*.{h,m}'
     jpl.public_header_files = 'Pod/Classes/JUMPLogger/Headers/*.h', 'Pod/Classes/JUMPLogger/Libraries/Log4CocoaTouch/Headers/*.h'
     jpl.dependency 'JUMP/JUMPCore'
     jpl.dependency 'Log4Cocoa', '0.1'
@@ -30,21 +30,21 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'JUMPDatabase' do |jpd|
-    jpd.source_files = 'Pod/Classes/JUMPDatabase/Sources/*.m', 'Pod/Classes/JUMPDatabase/Libraries/IAThreadSafeCoreData/Sources/*.m'
+    jpd.source_files = 'Pod/Classes/JUMPDatabase/Sources/*.{h,m}', 'Pod/Classes/JUMPDatabase/Libraries/IAThreadSafeCoreData/Sources/*.{h,m}'
     jpd.public_header_files = 'Pod/Classes/JUMPDatabase/Headers/*.h', 'Pod/Classes/JUMPDatabase/Libraries/IAThreadSafeCoreData/Headers/*.h'
     jpd.dependency 'JUMP/JUMPCore'
     jpd.dependency 'JUMP/JUMPLogger'
   end
 
   s.subspec 'JUMPNetwork' do |jpn|
-    jpn.source_files = 'Pod/Classes/JUMPNetwork/Sources/*.m'
+    jpn.source_files = 'Pod/Classes/JUMPNetwork/Sources/*.{h,m}'
     jpn.public_header_files = 'Pod/Classes/JUMPNetwork/Headers/*.h'
     jpn.dependency 'JUMP/JUMPLogger'
     jpn.dependency 'AFNetworking', '2.1.0'
   end
 
   s.subspec 'JUMPUserInterface' do |jui|
-    jui.source_files = 'Pod/Classes/JUMPUserInterface/Sources/*.m'
+    jui.source_files = 'Pod/Classes/JUMPUserInterface/Sources/*.{h,m}'
     jui.public_header_files = 'Pod/Classes/JUMPUserInterface/Headers/*.h'
   end
 end
