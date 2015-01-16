@@ -62,7 +62,6 @@ Pod::Spec.new do |s|
     # jdt.libraries             = 'JUMPData'
     jdt.dependency 'JUMP/JUMPNetwork'
     jdt.dependency 'JUMP/JUMPDatabase'
-    jdt.dependency 'SBJson', '4.0.1'
   end
 
   s.subspec 'JUMPUserInterface' do |jui|
