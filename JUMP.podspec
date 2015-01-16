@@ -24,11 +24,11 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'JUMPLogger' do |jpl|
-    jpl.source_files = 'Pod/Classes/JUMPLogger/{Sources,Headers}/*.{h,m}', 'Pod/Classes/JUMPLogger/Libraries/Log4CocoaTouch/{Sources,Headers}/*.h', 'Pod/Classes/JUMPLogger/Headers/JUMPLoggerConfig.h'
+    jpl.source_files = 'Pod/Classes/JUMPLogger/{Sources,Headers}/*.{h,m}', 'Pod/Classes/JUMPLogger/Libraries/Log4CocoaTouch/{Sources,Headers}/*.h'
     jpl.public_header_files = 'Pod/Classes/JUMPLogger/Headers/*.h', 'Pod/Classes/JUMPLogger/Libraries/Log4CocoaTouch/Headers/*.h'
-    # jpl.preserve_paths        = 'Pod/Classes/JUMPLogger/libJUMPLogger.a'
-    # jpl.ios.vendored_library  = 'Pod/Classes/JUMPLogger/libJUMPLogger.a'
-    # jpl.libraries             = 'JUMPLogger' 
+    jpl.preserve_paths        = 'Pod/Classes/JUMPLogger/libLog4CocoTouch.a'
+    jpl.ios.vendored_library  = 'Pod/Classes/JUMPLogger/libLog4CocoTouch.a'
+    jpl.libraries             = 'Log4CocoTouch' 
     jpl.dependency 'JUMP/JUMPCore'
     jpl.dependency 'NSLogger', '1.5'
   end
