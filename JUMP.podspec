@@ -56,7 +56,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'JUMPData' do |jdt|
     jdt.source_files = 'Pod/Classes/JUMPData/{Sources,Headers}/*.{h,m}', 'Pod/Classes/JUMPData/Libs/SBJSON/{Source,Headers}/*.{h,m}', 'Pod/Classes/JUMPData/Libs/GoogleToolboxForMac/{Source,Headers}/*.{h,m}'
-    jdt.public_header_files = 'Pod/Classes/JUMPData/Headers/*.h'
+    jdt.public_header_files = 'Pod/Classes/JUMPData/Headers/*.h', 'Pod/Classes/JUMPData/Libs/SBJSON/Headers/*.h', 'Pod/Classes/JUMPData/Libs/GoogleToolboxForMac/Headers/*.h'
     # jdt.preserve_paths        = 'Pod/Classes/JUMPData/libJUMPData.a'
     # jdt.ios.vendored_library  = 'Pod/Classes/JUMPData/libJUMPData.a'
     # jdt.libraries             = 'JUMPData'
