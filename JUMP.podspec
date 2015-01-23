@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   s.subspec 'JUMPNetwork' do |jpn|
     jpn.source_files = 'Pod/Classes/JUMPNetwork/{Sources,Headers}/**/*.{h,m}'
     jpn.public_header_files = 'Pod/Classes/JUMPNetwork/Headers/*.h'
-    jpn.dependency 'AFNetworking', '~> 2.0'
+    jpn.dependency 'AFNetworking', '2.0.0'
     jpn.dependency 'JUMP/JUMPLogger'
   end
 
