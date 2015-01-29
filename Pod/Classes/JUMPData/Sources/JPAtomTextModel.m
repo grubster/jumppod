@@ -20,11 +20,6 @@
 @implementation JPAtomTextModel
 @synthesize text, type;
 
-- (void) dealloc {
-	[type release];
-	[text release];
-	[super dealloc];
-}
 
 @end
 

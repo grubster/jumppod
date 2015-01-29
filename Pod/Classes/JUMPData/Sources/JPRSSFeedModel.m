@@ -25,7 +25,7 @@
 #pragma mark Init Methods
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 +(JPRSSFeedModel*)initWithDictionary:(NSDictionary*)anDictionary {
-	JPRSSFeedModel *instance = [[JPRSSFeedModel new] autorelease];
+	JPRSSFeedModel *instance = [JPRSSFeedModel new];
 	
 	// Load.
 	instance = [instance loadFeedFromDictionary:anDictionary];
@@ -35,18 +35,13 @@
 }
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
-- (void) dealloc {
-	[version release];
-	[channel release];
-	[super dealloc];
-}
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 #pragma mark -
 #pragma mark Private Methods
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 -(NSMutableDictionary*)buildMaps {
-	NSMutableDictionary *maps = [[NSMutableDictionary new] autorelease];
+	NSMutableDictionary *maps = [NSMutableDictionary new];
 	
 
 	///////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// 
@@ -175,7 +170,7 @@
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 -(id)convertToClass:(Class)anClass usingMap:(NSDictionary*)anMap withData:(id)data {
-	id element = [[anClass new] autorelease];
+	id element = [anClass new];
 	
 	// If Data is an String. This will happens when elements that have OPTIONAL attributes doesn't have this attributes.
 	// In this case our element is an String, not a Dictionary. What we have to do is create this Dictionary on the fly.
@@ -198,7 +193,7 @@
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 -(id)populateCollection:(Class)collectionClass withArray:(NSArray*)array {
 	// Init new object.
-	id populate = [[collectionClass new] autorelease];
+	id populate = [collectionClass new];
 	
 	// Loop all elements.
 	for ( NSString* item in array ) 

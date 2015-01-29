@@ -64,10 +64,10 @@
  * An JPAtomTitleModel object that contains a human readable title for the feed.
  * Often the same as the title of the associated website. This value should not be blank.
  */
-@property (retain) JPAtomTitleModel		*title;
+@property (strong) JPAtomTitleModel		*title;
 
 /// An JPAtomTitleModel object that contains a human-readable description or subtitle for the feed. 
-@property (retain) JPAtomTitleModel		*subtitle;
+@property (strong) JPAtomTitleModel		*subtitle;
 
 /// Indicates the last time the feed was modified in a significant way.
 @property (copy) NSString				*updated;
@@ -79,22 +79,22 @@
 @property (copy) NSString				*logo;
 
 /// An JPAtomRightsModel object that conveys information about rights, e.g. copyrights, held in and over the feed.
-@property (retain) JPAtomRightsModel		*rights;
+@property (strong) JPAtomRightsModel		*rights;
 
 /// An collection (JPAtomAuthorCollection) of authors (JPAtomAuthorModel) of the entry. An feed may have multiple authors.
-@property (retain) JPAtomAuthorCollection* author;
+@property (strong) JPAtomAuthorCollection* author;
 
 /// An collection (JPAtomLinksCollection) of links (JPAtomLinkModel) of the entry. Identifies a related Web page.
-@property (retain) JPAtomLinksCollection* links;
+@property (strong) JPAtomLinksCollection* links;
 
 /// An collection (JPAtomCategoryCollection) of the category. An feed may have multiple category elements.
-@property (retain) JPAtomCategoryCollection* category;
+@property (strong) JPAtomCategoryCollection* category;
 
 /// An collection (JPAtomContributorCollection) of the contributor. An entry may have multiple contributor elements.
-@property (retain) JPAtomContributorCollection* contributor;
+@property (strong) JPAtomContributorCollection* contributor;
 
 /// An collection (JPAtomEntryCollection) of the entry. An entry may have multiple contributor elements.
-@property (retain) JPAtomEntryCollection *entry;
+@property (strong) JPAtomEntryCollection *entry;
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 #pragma mark -

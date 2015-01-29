@@ -22,14 +22,5 @@
 // Properties.
 @synthesize domain, path, port, protocol, registerProcedure, value;
 
-- (void) dealloc {
-	[domain release];
-	[path release];
-	[port release];
-	[protocol release];
-	[registerProcedure release];
-	[value release];
-	[super dealloc];
-}
 
 @end

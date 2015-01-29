@@ -21,20 +21,4 @@
 /////////// /////////// /////////// /////////// /////////// /////////// /////////// /////////// /////////// /////////// /////////// /////////// 
 // Properties.
 @synthesize title, entryId, updated, summary, content, link, author, category, contributor, published;
-
-- (void) dealloc
-{
-	[title release];
-	[entryId release];
-	[updated release];
-	[summary release];
-	[content release];
-	[link release];
-	[author release];
-	[category release];
-	[contributor release];
-	[published release];
-	[super dealloc];
-}
-
 @end

@@ -22,18 +22,5 @@
 // Properties.
 @synthesize author, category, description, comments, link, pubDate, title, enclosure, guid, source;
 
-- (void) dealloc {
-	[author release];
-	[category release];
-	[comments release];
-	[link release];
-	[pubDate release];
-	[description release];
-	[title release];
-	[enclosure release];
-	[guid release];
-	[source release];
-	[super dealloc];
-}
 
 @end

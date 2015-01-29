@@ -103,39 +103,39 @@
 /**
  * This element contains an JPRSSSkipDaysCollection that identifies a category or tag to which the feed belongs.
  */
-@property (retain) JPRSSCategoryModel *category;
+@property (strong) JPRSSCategoryModel *category;
 
 /**
  * The JPRSSCloudModel object contains an cloud element indicates that updates to the feed can be monitored using 
  * a web service that implements the <a href="http://www.rssboard.org/rsscloud-interface">RssCloud application programming interface</a>. 
  */
-@property (retain) JPRSSCloudModel *cloud;
+@property (strong) JPRSSCloudModel *cloud;
 
 /**
  * The textInput element defines a form to submit a text query to the feed's publisher over the Common Gateway Interface (CGI).
  */
-@property (retain) JPRSSTextInputModel *textInput;
+@property (strong) JPRSSTextInputModel *textInput;
 
 /// An JPRSSImageModel that contains the data for the image element. The image element supplies a graphical logo for the feed.
-@property (retain) JPRSSImageModel		*image;
+@property (strong) JPRSSImageModel		*image;
 
 /**
  * The channel's skipDays element identifies days of the week during which the feed is not updated.
  * This element contains an JPRSSSkipDaysCollection object with up to seven day elements identifying the days to skip.
  */
-@property (retain) JPRSSSkipDaysCollection *skipDays;
+@property (strong) JPRSSSkipDaysCollection *skipDays;
 
 /**
  * The channel's skipHours element identifies the hours of the day during which the feed is not updated.
  * This element contains an JPRSSSkipDaysCollection object with individual hour elements identifying the hours to skip. 
  */
-@property (retain) JPRSSSkipHoursCollection *skipHours;
+@property (strong) JPRSSSkipHoursCollection *skipHours;
 
 /**
  * An item element represents distinct content published in the feed such 
  * as a news article, weblog entry or some other form of discrete update. 
  * JPRSItemCollection contains an collection JPRSSItemModel itens.
  */
-@property (retain) JPRSItemCollection *item;
+@property (strong) JPRSItemCollection *item;
 
 @end

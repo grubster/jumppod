@@ -26,10 +26,6 @@
 #pragma mark -
 #pragma mark Init Methods.
 //////// //////// //////// //////// //////// //////// //////// //////// //////// //////// //////// 
-- (void)dealloc {
-	[_parsedObject release], _parsedObject = nil;
-	[super dealloc];
-}
 
 ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// ////// 
 // Starts the event-driven parsing operation.
@@ -46,8 +42,8 @@
 	BOOL result = [super parse];
 	
 	// Release stacks.
-	[_objectStack release], _objectStack = nil;
-	[_objectStackName release], _objectStackName = nil;
+	_objectStack = nil;
+	_objectStackName = nil;
 	
 	// Return if ok.
 	return result;
@@ -253,8 +249,8 @@
 	
 	// Last element.
 	if ([_objectStack count] == 1) {
-		[_parsedObject release], _parsedObject = nil;
-		_parsedObject = [[_objectStack lastObject] retain];
+		_parsedObject = nil;
+		_parsedObject = [_objectStack lastObject];
 	}
 	
 	// Now that we've finished a node, let's step back up the tree.
@@ -287,9 +283,6 @@
 	
 	// Process.
 	BOOL success = [parserInstance parse];
-
-    // Will autorelease the parser later.
-	[parserInstance autorelease];
 	
 	// If some error.
 	if ( !success && [parserInstance parserError]) {

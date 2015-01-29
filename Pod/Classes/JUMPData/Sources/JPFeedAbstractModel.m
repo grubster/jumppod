@@ -40,7 +40,7 @@
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 -(id)populateCollection:(Class)collectionClass withObject:(Class)objectClass usingMap:(NSDictionary*)anMap withData:(id)object {
 	// Init new object.
-	id populate = [[collectionClass new] autorelease];
+	id populate = [collectionClass new];
 	
 	// Dictionary?
 	if ( [object isKindOfClass:[NSDictionary class]] ) {
@@ -52,7 +52,7 @@
 	for ( NSDictionary* item in object ) {
 		
 		// Create new item.
-		id element = [[objectClass new] autorelease];
+		id element = [objectClass new];
 		
 		// Populate.
 		element = [JPDataPopulator populateObject:element withData:item usingMap:anMap withDelegate:self];	

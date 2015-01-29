@@ -22,10 +22,5 @@
 // Properties.
 @synthesize value, domain;
 
-- (void) dealloc {
-	[value release];
-	[domain release];
-	[super dealloc];
-}
 
 @end

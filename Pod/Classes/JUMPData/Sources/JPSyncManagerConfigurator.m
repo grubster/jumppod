@@ -26,7 +26,7 @@
 #pragma mark -
 #pragma mark Init Methods. 
 +(id)init {
-	return [[[self alloc] init] autorelease];
+	return [[self alloc] init];
 }
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 - (id) init {
@@ -242,11 +242,9 @@
 		return;
 	
 	// Dealloc and re-set, if needed.
-	if( readKeyOrder ) 
-		[readKeyOrder release];
 	
 	// Assign.
-	readKeyOrder = [orderArray retain];
+	readKeyOrder = orderArray;
 }
 
 
@@ -260,10 +258,4 @@
 #pragma mark -
 #pragma mark Memory Management Methods. 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
-- (void) dealloc {
-	[maps release], maps = nil;
-	[readKeyOrder release], readKeyOrder = nil;
-	[configs release], configs = nil;
-	[super dealloc];
-}
 @end

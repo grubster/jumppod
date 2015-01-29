@@ -38,7 +38,7 @@
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 +(id)initWithMaps:(NSMutableDictionary*)anMaps andConfigs:(NSMutableDictionary*)anConfigs {
-	return [[[self alloc] initWithMaps:anMaps andConfigs:anConfigs] autorelease];
+	return [[self alloc] initWithMaps:anMaps andConfigs:anConfigs];
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// /
@@ -64,9 +64,7 @@
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 // Attach one Database Manager.
 -(void)attachMainDatabaseManager:(JPDBManager*)anManager {
-    if ( _mainThreadDatabaseManager )
-        [_mainThreadDatabaseManager release];
-    _mainThreadDatabaseManager = [anManager retain];
+    _mainThreadDatabaseManager = anManager;
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
@@ -170,9 +168,6 @@
 			// Call this same method to convert this class of Dictionary.
 			NSMutableDictionary *convertedObject = [self createNewFullCopyOfDictionary:[anDictionary objectForKey:key]];
 
-            // Converted are autoreleseable.
-            [convertedObject autorelease];
-			
 			//// //// //// //// //// //// //// //// //// //// //// //
 			
 			// Use setObject to set this converted element.
@@ -182,7 +177,7 @@
 		} else {
 			
 			// Copy this element. 
-			[copiedDictionary setObject:[[[anDictionary objectForKey:key] mutableCopy] autorelease] forKey:key ]; 
+			[copiedDictionary setObject:[[anDictionary objectForKey:key] mutableCopy] forKey:key ]; 
 		}
 	}
 	
@@ -214,7 +209,7 @@
 	}
 	
 	// Return an copy.
-	return [[self createNewFullCopyOfDictionary:[maps objectForKey:anMethodName]] autorelease];
+	return [self createNewFullCopyOfDictionary:[maps objectForKey:anMethodName]];
 }
 
 
@@ -323,8 +318,6 @@
 	[_context sendUpstream:_event];
     
     // Release local retained.
-    [(id)_context release];
-    [(id)_event release];
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
@@ -332,73 +325,71 @@
 
     //// //// //// //// //// //// //// //// //// //// //// //// ////
     // Create an Autorelease Pool.
-    NSAutoreleasePool *anPool = [NSAutoreleasePool new];
+    @autoreleasepool {
 
-    Debug( @"Starting to process...");
-    
+        Debug( @"Starting to process...");
+        
 	//////////// /////////// /////////// /////////// /////////// /////////// /////////// 
 	// Warn the delegate that will start to process.
 	if ( delegate )
 		if ( [(id)delegate respondsToSelector:@selector(syncManagerWillStartToProcess)] )
-             [(id)delegate performSelectorOnMainThread:@selector(syncManagerWillStartToProcess)
-                                        withObject:nil waitUntilDone:NO];
-    
+                 [(id)delegate performSelectorOnMainThread:@selector(syncManagerWillStartToProcess)
+                                            withObject:nil waitUntilDone:NO];
+        
 
-    /////////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// 
-    // Create an local Database Manager.
-    
-    Debug( @"Creating local Database Manager on background thread...");
+        /////////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// 
+        // Create an local Database Manager.
+        
+        Debug( @"Creating local Database Manager on background thread...");
 
-    // We have one specific model?
-    NSString *specificModel;
-    
-    // We have an Main Database attached?
-    if ( _mainThreadDatabaseManager ) {
-        // Load the specific model of this manager...
-        specificModel = _mainThreadDatabaseManager.loadedModelName;
-    }
+        // We have one specific model?
+        NSString *specificModel;
+        
+        // We have an Main Database attached?
+        if ( _mainThreadDatabaseManager ) {
+            // Load the specific model of this manager...
+            specificModel = _mainThreadDatabaseManager.loadedModelName;
+        }
 
-    // Create local Database Manager.
-    _backgroundThreadDatabaseManager = [[JPDBManager init] retain];
-    
-    // Main Database is using Thread Safe Context?
-    _backgroundThreadDatabaseManager.enableThreadSafeOperation = _mainThreadDatabaseManager && _mainThreadDatabaseManager.enableThreadSafeOperation;
-    
-    // Start Engine.
-    // If we have one specific model, load him.
-    if ( specificModel ) {
-        [_backgroundThreadDatabaseManager startCoreDataWithModel:specificModel];
-    } else {
-        [_backgroundThreadDatabaseManager startCoreData];
-    }
-    
-    // Set Core Data to merges conflicts between the persistent store’s version of the object 
-    // and the current in-memory version, giving priority to in-memory changes.
-    [_backgroundThreadDatabaseManager.managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        // Create local Database Manager.
+        _backgroundThreadDatabaseManager = [JPDBManager init];
+        
+        // Main Database is using Thread Safe Context?
+        _backgroundThreadDatabaseManager.enableThreadSafeOperation = _mainThreadDatabaseManager && _mainThreadDatabaseManager.enableThreadSafeOperation;
+        
+        // Start Engine.
+        // If we have one specific model, load him.
+        if ( specificModel ) {
+            [_backgroundThreadDatabaseManager startCoreDataWithModel:specificModel];
+        } else {
+            [_backgroundThreadDatabaseManager startCoreData];
+        }
+        
+        // Set Core Data to merges conflicts between the persistent store’s version of the object 
+        // and the current in-memory version, giving priority to in-memory changes.
+        [_backgroundThreadDatabaseManager.managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
 	
-    //////////// /////////// /////////// /////////// /////////// /////////// /////////// 
-    // Start to monitor when the Database Manager perform changes.
+        //////////// /////////// /////////// /////////// /////////// /////////// /////////// 
+        // Start to monitor when the Database Manager perform changes.
 	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mergeChanges:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:_backgroundThreadDatabaseManager.managedObjectContext];
-	
-	//// //// //// //// //// //// //// //// //// //// //// ////
-	id loopProcessing;
-	
+                                                 selector:@selector(mergeChanges:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:_backgroundThreadDatabaseManager.managedObjectContext];
 	//// //// //// //// //// //// //// //// //// //// //// ////
 	// If are defined one ORDERED SEQUENCE to read, we'll force the specified order.
 	// Other itens that aren't specified will remain unordered.
+        
+        NSMutableArray *loopProcessing;
 	if ( readKeyOrder ) {
 		
 		// Server Keys (Unordered).
-		NSMutableArray* actualKeys = [[[resultData allKeys] mutableCopy] autorelease];
+		NSMutableArray* actualKeys = [[resultData allKeys] mutableCopy];
 		
 		// Remove readKeyOrder elements.
 		[actualKeys removeObjectsInArray:readKeyOrder];
 		
 		// Make a copy of ReadKeyOrder.
-		loopProcessing = [[readKeyOrder mutableCopy] autorelease];
+		loopProcessing = [readKeyOrder mutableCopy];
 		
 		// Add Unordered at the bottom.
 		[loopProcessing addObjectsFromArray:actualKeys];
@@ -417,7 +408,7 @@
 	// Commit are an expensive processing to do for every record.
 	// So we keep the changes on memory, and commit at the end of the loop.
 	_backgroundThreadDatabaseManager.automaticallyCommit = NO;
-    
+        
 	//// //// //// //// //// //// //// //// //// //// //// ////
 	Debug( @"Looping Data Packets.");
 	//// //// //// //// //// //// //// //// //// //// //// ////
@@ -425,26 +416,26 @@
 		
 		// Grab one map for the current server data packet.
 		NSDictionary *bridgetEntityMap = [self grabAnMapForKey:serverDataKey];
-        
-        // Get Server Data Key Object Class.
-        id object = [resultData objectOnPath:serverDataKey];
-        
+            
+            // Get Server Data Key Object Class.
+            id object = [resultData objectOnPath:serverDataKey];
+            
 		// /////////// /////////// /////////// /////////// /////////// 
 		// Try...
 		if ( bridgetEntityMap						// ...Has an one map for it.
 			&& object                               // ...Exist on Server Data Packet.
 			) 
 		{
-            
-            // Advise that the Sync Manager Will Start to Process some specific server key.
-            if ( delegate ) {
-                if ( [(id)delegate respondsToSelector:@selector(syncManagerWillStartToProcessTheKey:)] ) {
-                    [delegate syncManagerWillStartToProcessTheKey:serverDataKey];
+                
+                // Advise that the Sync Manager Will Start to Process some specific server key.
+                if ( delegate ) {
+                    if ( [(id)delegate respondsToSelector:@selector(syncManagerWillStartToProcessTheKey:)] ) {
+                        [delegate syncManagerWillStartToProcessTheKey:serverDataKey];
+                    }
+                    if ( [(id)delegate respondsToSelector:@selector(syncManagerWillStartToProcessTheKey:inDatabaseManager:)] ) {
+                        [delegate syncManagerWillStartToProcessTheKey:serverDataKey inDatabaseManager:_backgroundThreadDatabaseManager];
+                    }
                 }
-                if ( [(id)delegate respondsToSelector:@selector(syncManagerWillStartToProcessTheKey:inDatabaseManager:)] ) {
-                    [delegate syncManagerWillStartToProcessTheKey:serverDataKey inDatabaseManager:_backgroundThreadDatabaseManager];
-                }
-            }
 
 			// DB action.
 			NSDictionary *databaseActions;
@@ -472,26 +463,27 @@
 			}
 
 			//// //// //// //// //// //// //// //// //// //// //// ////
-            // Actions to process.
-            NSArray *actions = [databaseActions allKeys];
-            
-            //// //// //// //// //// //// //// //// //// //// //// //////// //// //// //// //// //// //// //// //// //// //// ////
-            // For optimization, we do a first query for all lines. 
-            // This Query is made using "fault", so we don't load every data to memory.
-            JPDBManagerAction *anAction = [_backgroundThreadDatabaseManager getDatabaseAction];
-            anAction.returnObjectsAsFault = YES;
-            NSArray *allData = [anAction queryAllDataFromEntity:[self getConfigModelForKey:serverDataKey].toEntity];
-            
-            // If the DB is empty, we don't wave to test for updates.
-            BOOL shouldQueryEveryRecord = [allData count] > 0;
-            
+                // Actions to process.
+                NSArray *actions = [databaseActions allKeys];
+                
+                //// //// //// //// //// //// //// //// //// //// //// //////// //// //// //// //// //// //// //// //// //// //// ////
+                // For optimization, we do a first query for all lines. 
+                // This Query is made using "fault", so we don't load every data to memory.
+                JPDBManagerAction *anAction = [_backgroundThreadDatabaseManager getDatabaseAction];
+                anAction.returnObjectsAsFault = YES;
+                NSArray *allData = [anAction queryAllDataFromEntity:[self getConfigModelForKey:serverDataKey].toEntity];
+                
+                // If the DB is empty, we don't wave to test for updates.
+                BOOL shouldQueryEveryRecord = [allData count] > 0;
+                
 			//// //// //// //// //// //// //// //// //// //// //// ////
 			// Loop on DB Actions.
 			for ( NSString *action in actions ) {
-
-                Debug(@"Processing %i records from Server Key: %@", [object count], serverDataKey);
-                Debug(@"Exist %i records in the Entity: %@", [allData count], [self getConfigModelForKey:serverDataKey].toEntity);
-                
+                    NSInteger allDataCount = [allData count];
+                    NSInteger objectDataCount = [object performSelector:@selector(count:) withObject:nil];
+                    Debug(@"Processing %ld records from Server Key: %@", (long)allDataCount, serverDataKey);
+                    Debug(@"Exist %ld records in the Entity: %@", (long)objectDataCount, [self getConfigModelForKey:serverDataKey].toEntity);
+                    
 				///////// 	///////// 	///////// 	///////// 	///////// 	///////// 	///////// ///////// 	///////// 	///////// 	///////// 	///////// 	///////// 	///////// 
 				// If action are UPDATE (INSERT).
 				if ( [action isEqualToString:@"update"] ) {
@@ -517,15 +509,15 @@
 							// Data packet is the result inself.
 							[dataPacket addObject:object];
 						}
-                        
-                        //// //// //// //// //// //// //// //// //// //// //// ////
-                        // Increment percentage unit.
-                        float incrUnit = 100.0 / [loopProcessing count] / [actions count] / [dataPacket count];
+                            
+                            //// //// //// //// //// //// //// //// //// //// //// ////
+                            // Increment percentage unit.
+                            float incrUnit = 100.0 / [loopProcessing count] / [actions count] / [dataPacket count];
 						
 						//// //// //// //// //// //// //// //// //// //// //// ////
 						// Loop all records on this data packet.
 						for ( id record in dataPacket ) {
-                            
+                                
 							// Update by value.
 							NSString *updateKey = [self grabUpdateKeyFromConfiguredKey:serverDataKey];
 							
@@ -542,38 +534,38 @@
 							NSString *updateLocalKey = [self tryToGrabDataKey:updateKey
 															   fromBridgedMap:bridgetEntityMap];
 							
-                            
-                            ///// /////////// /////////// /////////// /////////// /////////// 
-                            // Result init as empty Array.
-                            NSArray *result = nil;
-                            
-                            ///// /////////// /////////// /////////// /////////// /////////// 
-                            // Should query to check updates?
-                            if ( shouldQueryEveryRecord ) {
                                 
-                                //// /////////// /////////// ////// /////////// /////////// // /////////// /////////// 
-                                // Believe or not is faster to do this kind of search that a Core Data Query.
-                                for ( id dataItem in allData ) {
-                                    BOOL found = [[dataItem valueForKey:updateLocalKey] isEqual:value];
-                                    if ( found ) {
-                                        result = [NSArray arrayWithObject:dataItem];
-                                        break;
+                                ///// /////////// /////////// /////////// /////////// /////////// 
+                                // Result init as empty Array.
+                                NSArray *result = nil;
+                                
+                                ///// /////////// /////////// /////////// /////////// /////////// 
+                                // Should query to check updates?
+                                if ( shouldQueryEveryRecord ) {
+                                    
+                                    //// /////////// /////////// ////// /////////// /////////// // /////////// /////////// 
+                                    // Believe or not is faster to do this kind of search that a Core Data Query.
+                                    for ( id dataItem in allData ) {
+                                        BOOL found = [[dataItem valueForKey:updateLocalKey] isEqual:value];
+                                        if ( found ) {
+                                            result = [NSArray arrayWithObject:dataItem];
+                                            break;
+                                        }
                                     }
+                                    
+                                    /* We're not using this query anym  ore because is too slow.
+                                    // Predicate to Query the DB.
+                                    NSPredicate *query = [NSPredicate predicateWithFormat:@"%K == %@", updateLocalKey, value];
+                                    
+                                    // Grab from DB this object using the key.
+                                    result = [JPLocalDBManager queryEntity:[self getConfigModelForKey:serverDataKey].toEntity
+                                                         withFetchTemplate:nil
+                                                replaceFetchWithDictionary:nil
+                                                    arrayOfSortDescriptors:nil
+                                                           customPredicate:query];
+                                     */
                                 }
                                 
-                                /* We're not using this query anym  ore because is too slow.
-                                // Predicate to Query the DB.
-                                NSPredicate *query = [NSPredicate predicateWithFormat:@"%K == %@", updateLocalKey, value];
-                                
-                                // Grab from DB this object using the key.
-                                result = [JPLocalDBManager queryEntity:[self getConfigModelForKey:serverDataKey].toEntity
-                                                     withFetchTemplate:nil
-                                            replaceFetchWithDictionary:nil
-                                                arrayOfSortDescriptors:nil
-                                                       customPredicate:query];
-                                 */
-                            }
-                            
 							// Data to Populate.
 							id coreDataRecord;
 							
@@ -593,8 +585,8 @@
 								coreDataRecord = [JPLocalDBManager createNewRecordForEntity:[self getConfigModelForKey:serverDataKey].toEntity];
 								
 							} 
-                            //// //// //// //// //// //// //// //// 
-                            // Else Just will update.
+                                //// //// //// //// //// //// //// //// 
+                                // Else Just will update.
 							else {
 								
 								//// //// //// //// //// //// //// //// //// //// 
@@ -612,8 +604,8 @@
 										[delegate willUpdateTheData:record
 														   inObject:coreDataRecord
 														  forEntity:[self getConfigModelForKey:serverDataKey].toEntity
-                                                  inDatabaseManager:_backgroundThreadDatabaseManager];
-                                }
+                                                      inDatabaseManager:_backgroundThreadDatabaseManager];
+                                    }
 								
 							}
 							
@@ -629,31 +621,30 @@
 									 [delegate didUpdateOrInsertTheObject:coreDataRecord
 																withData:record
 															   forEntity:[self getConfigModelForKey:serverDataKey].toEntity ];
-                                if ( [(id)delegate respondsToSelector:@selector(didUpdateOrInsertTheObject:withData:forEntity:inDatabaseManager:)] )
-                                    [delegate didUpdateOrInsertTheObject:coreDataRecord
+                                    if ( [(id)delegate respondsToSelector:@selector(didUpdateOrInsertTheObject:withData:forEntity:inDatabaseManager:)] )
+                                        [delegate didUpdateOrInsertTheObject:coreDataRecord
 																withData:record
 															   forEntity:[self getConfigModelForKey:serverDataKey].toEntity
-                                                       inDatabaseManager:_backgroundThreadDatabaseManager];
+                                                           inDatabaseManager:_backgroundThreadDatabaseManager];
 
-                            }
-                            
-                            //////////// /////////// /////////// /////////// /////////// /////////// /////////// 
-                            // Calculate the progress.
-                            float calcProgress = ( currentProgress == nil ? 0.00 : [currentProgress floatValue] ) + incrUnit;
-                            if ( currentProgress ) [currentProgress release];
-                            currentProgress = [[NSNumber numberWithFloat:calcProgress] retain];
-                            
-                            // Inform to delegate the progress of our task, if needed.
-                            // Performoed in Main Thread.
-                            if (delegate)
-                                if ([(id)delegate respondsToSelector:@selector(syncOperationProgress:)]) {
-                                    [(id)delegate performSelectorOnMainThread:@selector(syncOperationProgress:) 
-                                                                   withObject:currentProgress
-                                                                waitUntilDone:NO];
                                 }
-                            
-                            // Inform to the context the progress of our handler.
-                            [_context setProgress:currentProgress withEvent:_event];
+                                
+                                //////////// /////////// /////////// /////////// /////////// /////////// /////////// 
+                                // Calculate the progress.
+                                float calcProgress = ( currentProgress == nil ? 0.00 : [currentProgress floatValue] ) + incrUnit;
+                                currentProgress = [NSNumber numberWithFloat:calcProgress];
+                                
+                                // Inform to delegate the progress of our task, if needed.
+                                // Performoed in Main Thread.
+                                if (delegate)
+                                    if ([(id)delegate respondsToSelector:@selector(syncOperationProgress:)]) {
+                                        [(id)delegate performSelectorOnMainThread:@selector(syncOperationProgress:) 
+                                                                       withObject:currentProgress
+                                                                    waitUntilDone:NO];
+                                    }
+                                
+                                // Inform to the context the progress of our handler.
+                                [_context setProgress:currentProgress withEvent:_event];
 						}
 						
 					}
@@ -675,17 +666,17 @@
 										serverDataKey:serverDataKey];
 				}
 			}
-            
-            // Advise that the Sync Manager Did Finish to Process some specific server key.
-            if ( delegate ) {
-                if ( [(id)delegate respondsToSelector:@selector(syncManagerDidFinishToProcessTheKey:)] ) {
-                    [delegate syncManagerDidFinishToProcessTheKey:serverDataKey];
-                }
                 
-                if ( [(id)delegate respondsToSelector:@selector(syncManagerDidFinishToProcessTheKey:inDatabaseManager:)] ) {
-                    [delegate syncManagerDidFinishToProcessTheKey:serverDataKey inDatabaseManager:_backgroundThreadDatabaseManager];
+                // Advise that the Sync Manager Did Finish to Process some specific server key.
+                if ( delegate ) {
+                    if ( [(id)delegate respondsToSelector:@selector(syncManagerDidFinishToProcessTheKey:)] ) {
+                        [delegate syncManagerDidFinishToProcessTheKey:serverDataKey];
+                    }
+                    
+                    if ( [(id)delegate respondsToSelector:@selector(syncManagerDidFinishToProcessTheKey:inDatabaseManager:)] ) {
+                        [delegate syncManagerDidFinishToProcessTheKey:serverDataKey inDatabaseManager:_backgroundThreadDatabaseManager];
+                    }
                 }
-            }
 		}
 		
 		////////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// /////////
@@ -694,41 +685,40 @@
 			if ( delegate ) {
 				if ( [(id)delegate respondsToSelector:@selector(unhandledServerKey:withData:)] ) {
 					 [delegate unhandledServerKey:serverDataKey withData:object];
-                }
+                    }
 
-                if ( [(id)delegate respondsToSelector:@selector(unhandledServerKey:withData:inDatabaseManager:)] ) {
-                     [delegate unhandledServerKey:serverDataKey withData:object inDatabaseManager:_backgroundThreadDatabaseManager];
+                    if ( [(id)delegate respondsToSelector:@selector(unhandledServerKey:withData:inDatabaseManager:)] ) {
+                         [delegate unhandledServerKey:serverDataKey withData:object inDatabaseManager:_backgroundThreadDatabaseManager];
+                    }
                 }
-            }
 		}
 	}
 	
 	/////////// /////////// /////////// /////////// /////////// /////////// 
 	Debug( @"Final Commit of all processing.");
 	/////////// /////////// /////////// /////////// /////////// /////////// 
-    // Commit all changes.
+        // Commit all changes.
 	[_backgroundThreadDatabaseManager commit];
 	
-    // Clean up the progress, no operation is running.
-    [currentProgress release]; currentProgress = nil;
-    
-    // Stop listening for notifications.
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    // Release the local Database Manager.
-    [_backgroundThreadDatabaseManager release];
-    
-    //////////// /////////// /////////// /////////// /////////// /////////// ///////////
+        // Clean up the progress, no operation is running.
+         currentProgress = nil;
+        
+        // Stop listening for notifications.
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+        // Release the local Database Manager.
+        
+        //////////// /////////// /////////// /////////// /////////// /////////// ///////////
 	// Warn the delegate that did finish to process.
 	if ( delegate ) {
 		if ( [(id)delegate respondsToSelector:@selector(syncManagerDidFinishToProcess)] )
-             [(id)delegate performSelectorOnMainThread:@selector(syncManagerDidFinishToProcess) 
-                                           withObject:nil
-                                        waitUntilDone:NO];
-    }
+                 [(id)delegate performSelectorOnMainThread:@selector(syncManagerDidFinishToProcess) 
+                                               withObject:nil
+                                            waitUntilDone:NO];
+        }
     
     // Flush and release the Pool.
-    [anPool release];
+    }
     
     // Nullify after autorelease.
     _backgroundThreadDatabaseManager = nil;
@@ -745,8 +735,8 @@
 -(void)messageReceived:(id<JPPipelineHandlerContext>)ctx withMessageEvent:(id<JPPipelineMessageEvent>)e {
 	
     // Store the context and the event for later.
-    _context = [(id)ctx retain];
-    _event   = [(id)e retain];
+    _context = (id)ctx;
+    _event   = (id)e;
 
     // Message to process.
     id message = [e getMessage];
@@ -826,14 +816,5 @@
 #pragma mark -
 #pragma mark Memory Management Methods. 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
-- (void) dealloc {
-	[maps release], maps = nil;
-	[configs release], configs = nil;
-	[readKeyOrder release], readKeyOrder = nil;
-    [currentProgress release], currentProgress= nil;
-    [_backgroundThreadDatabaseManager release], _backgroundThreadDatabaseManager = nil;
-    [_mainThreadDatabaseManager release];
-	[super dealloc];
-}
 
 @end

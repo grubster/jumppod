@@ -44,7 +44,7 @@
  * providing such information as its title and description, and contains items that 
  * represent discrete updates to the web content represented by the feed. 
  */
-@property (retain) JPRSSChannelModel *channel;
+@property (strong) JPRSSChannelModel *channel;
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 #pragma mark -

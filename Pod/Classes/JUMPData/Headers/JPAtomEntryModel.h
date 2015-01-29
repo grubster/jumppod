@@ -45,10 +45,10 @@
 @property (copy) NSString* published;
 
 /// An JPAtomTitleModel object that contains a human readable title for the entry. This value should not be blank.
-@property (retain) JPAtomTitleModel* title;
+@property (strong) JPAtomTitleModel* title;
 
 /// An JPAtomSummaryModel object that identifies the category.
-@property (retain) JPAtomSummaryModel* summary;
+@property (strong) JPAtomSummaryModel* summary;
 
 /*
  * An JPAtomContentModel object that conveys a short summary, abstract, or excerpt of the entry.
@@ -56,19 +56,19 @@
  * or that content is not inline (i.e., contains a src attribute), 
  * or if the content is encoded in base64. More info <a href="http://www.atomenabled.org/developers/syndication/#link">here</a>.
  */
-@property (retain) JPAtomContentModel* content;
+@property (strong) JPAtomContentModel* content;
 
 /// A list of links (JPAtomLinkModel) of the entry. Identifies a related Web page.
-@property (retain) JPAtomLinksCollection* link;
+@property (strong) JPAtomLinksCollection* link;
 
 /// A list of authors (JPAtomAuthorModel) of the entry. An entry may have multiple authors.
-@property (retain) JPAtomAuthorCollection* author;
+@property (strong) JPAtomAuthorCollection* author;
 
 /// A list of categories (JPAtomCategoryModel) of the entry. An entry may have multiple category elements.
-@property (retain) JPAtomCategoryCollection* category;
+@property (strong) JPAtomCategoryCollection* category;
 
 /// A list of contributors (JPAtomContributorModel) of the entry. An entry may have multiple contributor elements.
-@property (retain) JPAtomContributorCollection* contributor;
+@property (strong) JPAtomContributorCollection* contributor;
 
 
 @end

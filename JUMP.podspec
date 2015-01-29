@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/grubster/JUMP.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '6.0'
-  s.requires_arc = false
+  s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
   s.resource_bundles = {
@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   s.subspec 'JUMPNetwork' do |jpn|
     jpn.source_files = 'Pod/Classes/JUMPNetwork/{Sources,Headers}/**/*.{h,m}'
     jpn.public_header_files = 'Pod/Classes/JUMPNetwork/Headers/*.h'
-    jpn.dependency 'AFNetworking', '2.0.0'
+    jpn.dependency 'AFNetworking', '2.5.0'
     jpn.dependency 'JUMP/JUMPLogger'
   end
 

@@ -37,7 +37,7 @@
 	NSArray *readKeyOrder;
 
 	//// //// //// //// //// //// //// //// //// //// 
-	id<JPSyncManagerHandlerDelegate> delegate;
+	id<JPSyncManagerHandlerDelegate> __weak delegate;
 	
     //// //// //// //// //// //// //// //// //// //// 
     //
@@ -47,14 +47,14 @@
     // See this article for more info About Core Data and Multithread:
     // http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/CoreData/Articles/cdConcurrency.html
     //
-    JPDBManager *_backgroundThreadDatabaseManager;
+    JPDBManager *__weak _backgroundThreadDatabaseManager;
     
     // Main thread Database Manager is stored here, so we can merge the changes between the two Database Manager later.
     JPDBManager *_mainThreadDatabaseManager;
 
     //// //// //// //// //// //// //// //// //// //// 
     // Current Progress of running task.
-    NSNumber *currentProgress;
+    NSNumber *__weak currentProgress;
     
     // Local storage.
     id<JPPipelineHandlerContext> _context;
@@ -62,11 +62,11 @@
 }
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 #pragma mark Properties.
-@property(retain) NSMutableDictionary *maps;
-@property(retain) NSMutableDictionary *configs;
-@property(retain) NSArray *readKeyOrder;
+@property(strong) NSMutableDictionary *maps;
+@property(strong) NSMutableDictionary *configs;
+@property(strong) NSArray *readKeyOrder;
 
-@property(assign) id<JPSyncManagerHandlerDelegate> delegate;
+@property(weak) id<JPSyncManagerHandlerDelegate> delegate;
 
 /**
  * All Core Data operations of JPSyncManagerHandler is performed on a separated thread (background)
@@ -75,13 +75,13 @@
  * allows you to acess this <b>Database Manager</b>. You always should perform <b>Database Operations</b>
  * using this <b>Database Manager</b>.
  */
-@property(readonly) JPDBManager* databaseManager;
+@property(weak, readonly) JPDBManager* databaseManager;
 
 /**
  * Progress of current running task. This property contain values from 0 to 100 
  * indicating the percentage completed or <tt>nil</tt> if no task is running.
  */
-@property (readonly) NSNumber *currentProgress;
+@property (weak, readonly) NSNumber *currentProgress;
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 #pragma mark -

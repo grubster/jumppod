@@ -25,12 +25,12 @@
 /**
  * Internal collection.
  */
-@property (retain) NSMutableArray *collection;
+@property (strong) NSMutableArray *collection;
 
 /**
  * Return the first object of this collection, or <tt>nil</tt> if is empty.
  */
-@property (readonly) id firstObject;
+@property (weak, readonly) id firstObject;
 
 /**
  * Add an object to this collection.
@@ -57,7 +57,7 @@
 /**
  * Return the first object of this collection, or <tt>nil</tt> if is empty.
  */
-@property (readonly) JPRSSItemModel* firstObject;
+@property (weak, readonly) JPRSSItemModel* firstObject;
 
 /**
  * Add an object to this collection.

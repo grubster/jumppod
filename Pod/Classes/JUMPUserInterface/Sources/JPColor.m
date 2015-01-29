@@ -108,7 +108,7 @@
 // Init object from one Dictionary.
 +(JPColor*)initWithDictionary:(NSDictionary*)anDictionary {
 	// Create new instance.
-	JPColor *anInstance = [[[JPColor alloc] init] autorelease];
+	JPColor *anInstance = [[JPColor alloc] init];
 
 	// Set Color and return.
 	[anInstance setColorWithDictionary:anDictionary];	 
@@ -155,7 +155,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 +(JPColor*)initWithCSS:(NSString*)anCSSString {
 	// Create new instance.
-	JPColor *anInstance = [[[JPColor alloc] init] autorelease];
+	JPColor *anInstance = [[JPColor alloc] init];
 	
 	// Set Color and return.
 	[anInstance setColorWithCSS:anCSSString];
@@ -166,7 +166,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 +(JPColor*)initWithRed:(int)Red G:(int)Green B:(int)Blue opacity:(float)anAlpha blendMode:(CGBlendMode)anBlendMode {
 	// Create new instance.
-	JPColor *anInstance = [[[JPColor alloc] init] autorelease];
+	JPColor *anInstance = [[JPColor alloc] init];
 
 	// Set Color and return.
 	[anInstance setColorRed:Red G:Green B:Blue opacity:anAlpha blendMode:anBlendMode  ];
@@ -266,12 +266,12 @@
 		// Some color name.
 		} else {
 			if ( [JPColor respondsToSelector:NSSelectorFromString(cssString)] ) {
-				JPColor *instance = [[JPColor performSelector:NSSelectorFromString(cssString)] retain];
+				JPColor *instance = [JPColor performSelector:NSSelectorFromString(cssString)];
 				// Retrieve values.
 				anRGB = [instance RGB];
 				anopacity = [instance opacity];
 				// Release instance.
-				[instance release];
+				instance = nil;
 			} 
 			// Unknown color name.
 			else {
@@ -410,15 +410,5 @@
 														blendMode:__blendMode];
 	return copy;
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Free Memory - Release. 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)dealloc {
-	[__blendModes release], __blendModes = nil;
-	[super dealloc];
-}
-
 
 @end

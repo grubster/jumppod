@@ -35,7 +35,7 @@
 }
 
 +(id)init {
-	return [[[self alloc] init] autorelease];
+	return [[self alloc] init];
 }
 
 ///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// 
@@ -47,13 +47,5 @@
 }
 
 ///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// 
-- (void) dealloc {
-	[key release], key = nil;
-	[toEntity release], toEntity = nil;
-	[map release], map = nil;
-	[deleteKey release], deleteKey = nil;
-	[updateKey release], updateKey = nil;
-	[super dealloc];
-}
 
 @end

@@ -39,17 +39,13 @@
 -(void)addObject:(id)anObject {
 	// If isn't alloced.
 	if ( collection == nil )
-	 	 self.collection = [[NSMutableArray new] autorelease];
+	 	 self.collection = [NSMutableArray new];
 
 	// Add object.
 	[collection addObject:anObject];
 }
 
 ////////// ////////// ////////// ////////// ////////// /
-- (void) dealloc {
-	[collection release], collection = nil;
-	[super dealloc];
-}
 
 @end
 

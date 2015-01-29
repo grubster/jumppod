@@ -30,7 +30,7 @@
 ////////////// ////////////// ////////////// ////////////// 
 // Convert from JSON String to an Dictionary Object.
 +(id)convertFromJSON:(NSString*)anJSONString {
-	SBJsonParser *anProcesser = [[[SBJsonParser alloc] init] autorelease];
+	SBJsonParser *anProcesser = [[SBJsonParser alloc] init];
     
     // Error Handler.
     NSError *anError = nil;
@@ -51,7 +51,7 @@
 ////////////// ////////////// ////////////// //////////////
 // Convert from JSON Data to an Dictionary Object.
 +(id)convertFromJSONData:(NSData *)anJSONData {
-	SBJsonParser *anProcesser = [[[SBJsonParser alloc] init] autorelease];
+	SBJsonParser *anProcesser = [[SBJsonParser alloc] init];
     
     // Try to process.
     id processed = [anProcesser objectWithData:anJSONData];
@@ -80,7 +80,7 @@
 ////////////// ////////////// ////////////// ////////////// 
 // Convert an Dictionary to an JSON String. Human readable or not defined by parameter.
 +(NSString*)convertToJSON:(NSDictionary*)anJSONDictionary humanReadable:(BOOL)humanReadable {
-	SBJsonWriter *anProcesser = [[[SBJsonWriter alloc] init] autorelease];
+	SBJsonWriter *anProcesser = [[SBJsonWriter alloc] init];
 	anProcesser.humanReadable = humanReadable;
     
     // Error Handler.

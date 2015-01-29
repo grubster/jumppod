@@ -38,15 +38,15 @@
 	
 	//// //// //// //// //// //// //// //// //// //// 
 	// Database Manager.
-	JPDBManagerSingleton *databaseManager;
+	JPDBManagerSingleton *__weak databaseManager;
 }
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 #pragma mark Properties.
-@property(assign) JPDBManagerSingleton* databaseManager;
+@property(weak) JPDBManagerSingleton* databaseManager;
 
-@property(retain) NSMutableDictionary *maps;
-@property(retain) NSMutableDictionary *configs;
-@property(retain) NSArray *readKeyOrder;
+@property(strong) NSMutableDictionary *maps;
+@property(strong) NSMutableDictionary *configs;
+@property(strong) NSArray *readKeyOrder;
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 #pragma mark -

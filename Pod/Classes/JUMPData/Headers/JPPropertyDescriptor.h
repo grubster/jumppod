@@ -20,7 +20,6 @@
  * JPPropertyDescriptor is used by JPDataPopulator to better describe an property of some Class.
  */
 @interface JPPropertyDescriptor : NSObject {
-    Class propertyClass;
     id propertyValue;
     NSString *propertyName;
     NSData *propertyEncode;
@@ -29,24 +28,24 @@
 /**
  * The <tt>Class</tt> of this property. If is the property is an <tt>iVar</tt> this value is <tt>nil</tt>.
  */
-@property (retain) Class propertyClass;
+@property (strong) Class propertyClass;
 
 /**
  * The value setted on this property.
  */
-@property (retain) id propertyValue;
+@property (strong) id propertyValue;
 
 /**
  * The name of this property.
  */
-@property (retain) NSString *propertyName;
+@property (strong) NSString *propertyName;
 
 /**
  * An <tt>NSData</tt> object that has an Obj-C encode value of this property. You can use the <tt>@encode</tt> compiler expresion
  * to retrieve the encode of some Obj-C type and compare. This class implement some methods that will help you to easily
  * check more used types without so much boilerplate.
  */
-@property (retain) NSData *propertyEncode;
+@property (strong) NSData *propertyEncode;
 
 /**
  * Return <tt>YES</tt> if this property is an Object (inherited from NSObject).

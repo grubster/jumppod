@@ -25,7 +25,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 // Init Methods.
 +(id)initWithTerm:(NSString*)anTerm scheme:(NSString*)anScheme label:(NSString*)anLabel {
-	JPAtomCategoryModel *instance = [[JPAtomCategoryModel new] autorelease];
+	JPAtomCategoryModel *instance = [JPAtomCategoryModel new];
 	
 	// Load data.
 	instance.term	= anTerm;
@@ -37,13 +37,6 @@
 }
 
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// //////////
-- (void) dealloc
-{
-	[term release];
-	[scheme release];
-	[label release];
-	[super dealloc];
-}
 
 
 @end

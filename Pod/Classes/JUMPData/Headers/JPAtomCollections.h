@@ -28,12 +28,12 @@
 /**
  * Internal collection.
  */
-@property (retain) NSMutableArray *collection;
+@property (strong) NSMutableArray *collection;
 
 /**
  * Return the first object of this collection, or <tt>nil</tt> if is empty.
  */
-@property (readonly) id firstObject;
+@property (weak, readonly) id firstObject;
 
 /**
  * Add an object to this collection.
@@ -50,7 +50,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 #pragma mark -
 @interface JPAtomAuthorCollection : JPAtomPersonCollection {}
-@property (readonly) JPAtomAuthorModel* firstObject;
+@property (weak, readonly) JPAtomAuthorModel* firstObject;
 -(void)addObject:(JPAtomAuthorModel*)anObject;
 -(JPAtomAuthorModel*)objectAtIndex:(NSInteger)anIndex;
 @end
@@ -58,7 +58,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 #pragma mark -
 @interface JPAtomLinksCollection : JPAtomPersonCollection {}
-@property (readonly) JPAtomLinkModel* firstObject;
+@property (weak, readonly) JPAtomLinkModel* firstObject;
 -(void)addObject:(JPAtomLinkModel*)anObject;
 -(JPAtomLinkModel*)objectAtIndex:(NSInteger)anIndex;
 @end
@@ -66,7 +66,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 #pragma mark -
 @interface JPAtomEntryCollection : JPAtomPersonCollection {}
-@property (readonly) JPAtomEntryModel* firstObject;
+@property (weak, readonly) JPAtomEntryModel* firstObject;
 -(void)addObject:(JPAtomEntryModel*)anObject;
 -(JPAtomEntryModel*)objectAtIndex:(NSInteger)anIndex;
 @end
@@ -74,7 +74,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 #pragma mark -
 @interface JPAtomCategoryCollection : JPAtomPersonCollection {}
-@property (readonly) JPAtomCategoryModel* firstObject;
+@property (weak, readonly) JPAtomCategoryModel* firstObject;
 -(void)addObject:(JPAtomCategoryModel*)anObject;
 -(JPAtomCategoryModel*)objectAtIndex:(NSInteger)anIndex;
 @end
@@ -82,7 +82,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 #pragma mark -
 @interface JPAtomContributorCollection : JPAtomPersonCollection {}
-@property (readonly) JPAtomContributorModel* firstObject;
+@property (weak, readonly) JPAtomContributorModel* firstObject;
 -(void)addObject:(JPAtomContributorModel*)anObject;
 -(JPAtomContributorModel*)objectAtIndex:(NSInteger)anIndex;
 @end

@@ -93,7 +93,7 @@
 
 ///////////// 	///////////// 	///////////// 	///////////// 	///////////// 	///////////// // 	///////////// 	/////////////
 +(JPPropertyDescriptor*)grabDescriptorOfProperty:(NSString*)anProperty onObject:(id)anObject {
-    JPPropertyDescriptor *anDescriptor = [[[JPPropertyDescriptor alloc] init] autorelease];
+    JPPropertyDescriptor *anDescriptor = [[JPPropertyDescriptor alloc] init];
     
     // Property Name.
     anDescriptor.propertyName = anProperty;
@@ -103,7 +103,7 @@
 	 * To correct compile, you need to ADD the libobjc.A.dylib framework to your target. And also #import the <objc/runtime.h>
 	 */
     
-    Class propertyClass;
+    Class propertyClass = nil;
 
 	// Get the property (Method) attributes.
 	objc_property_t property = class_getProperty([anObject class], [anProperty UTF8String]);
@@ -147,7 +147,6 @@
 		propertyClass = NSClassFromString(type);
         
         // Release string type.
-        [type release];
 	}
     
     // Set Class.
@@ -331,7 +330,7 @@
     
 	///////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
     // Format a NSDictionary with this properties.
-    NSMutableDictionary *extractedData = [[NSMutableDictionary new] autorelease];
+    NSMutableDictionary *extractedData = [NSMutableDictionary new];
     
 	///////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
     for(i = 0; i < outCount; i++) {
@@ -364,7 +363,7 @@
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 +(id)populateObject:(id)anObject withPropertiesOfObject:(id)anSecondObject usingMap:(NSDictionary*)anMap withDelegate:(id<JPDataPopulatorDelegate>)anDelegate {
 	// Create an instance.
-	JPDataPopulator *anInstance = [[[self alloc] init] autorelease];
+	JPDataPopulator *anInstance = [[self alloc] init];
 	// Set delegate.
 	anInstance.delegate = anDelegate;
     
@@ -380,7 +379,7 @@
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 +(id)populateDictionary:(NSMutableDictionary*)anDictionary withPropertiesOfObject:(id)anSecondObject usingMap:(NSDictionary*)anMap {
 	// Create an instance.
-	JPDataPopulator *anInstance = [[[self alloc] init] autorelease];
+	JPDataPopulator *anInstance = [[self alloc] init];
 	
 	/////////////
 	
@@ -397,7 +396,7 @@
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 +(id)populateObject:(id)anObject withData:(NSDictionary*)anDictionary usingMap:(NSDictionary*)anMap withDelegate:(id<JPDataPopulatorDelegate>)anDelegate {
 	// Create an instance.
-	JPDataPopulator *anInstance = [[[self alloc] init] autorelease];
+	JPDataPopulator *anInstance = [[self alloc] init];
 	// Set delegate.
 	anInstance.delegate = anDelegate;
 	

@@ -92,7 +92,6 @@
     }
     
     // Autorelease.
-    [allPaths autorelease];
     
     // Return.
     return allPaths;

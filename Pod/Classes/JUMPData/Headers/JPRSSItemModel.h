@@ -65,23 +65,23 @@
  * An JPRSSEnclosureModel object with enclosure element data that associates a media
  * object such as an audio or video file with the item.
  */
-@property (retain) JPRSSEnclosureModel* enclosure;
+@property (strong) JPRSSEnclosureModel* enclosure;
 
 /**
  * An JPRSSGuidModel object that provides a string that uniquely identifies the item. 
  * The guid MAY include an isPermaLink attribute.
  */
-@property (retain) JPRSSGuidModel* guid;
+@property (strong) JPRSSGuidModel* guid;
 
 /**
  * An JPRSSGuidModel object that indicates the fact that the item
  * has been republished from another RSS feed. 
  * The element MUST have a url attribute that identifies the URL of the source feed.
  */
-@property (retain) JPRSSSourceModel* source;
+@property (strong) JPRSSSourceModel* source;
 
 /// An JPRSSCategoryModel object that identifies a category or tag to which the item belongs.
-@property (retain) JPRSSCategoryModel* category;
+@property (strong) JPRSSCategoryModel* category;
 
 @end
 

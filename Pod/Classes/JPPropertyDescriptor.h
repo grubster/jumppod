@@ -19,12 +19,7 @@
  * \nosubgrouping
  * JPPropertyDescriptor is used by JPDataPopulator to better describe an property of some Class.
  */
-@interface JPPropertyDescriptor : NSObject {
-    Class propertyClass;
-    id propertyValue;
-    NSString *propertyName;
-    NSData *propertyEncode;
-}
+@interface JPPropertyDescriptor : NSObject
 
 @property (retain) Class propertyClass;
 @property (retain) id propertyValue;

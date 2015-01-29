@@ -22,15 +22,5 @@
 // Properties.
 @synthesize href, rel, type, hreflang, title, length;
 
-- (void) dealloc
-{
-	[href release];
-	[rel release];
-	[type release];
-	[hreflang release];
-	[title release];
-	[length release];
-	[super dealloc];
-}
 
 @end

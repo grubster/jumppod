@@ -26,7 +26,7 @@
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
 // Init Methods.
 +(id)initWithName:(NSString*)anName {
-	JPAtomPersonModel *instance = [[JPAtomPersonModel new] autorelease];
+	JPAtomPersonModel *instance = [JPAtomPersonModel new];
 	
 	// Load data.
 	instance.name	= anName;
@@ -48,13 +48,6 @@
 }
 
 ////////// ////////// ////////// ////////// ////////// ////////// ////////// ////////// 
-- (void) dealloc
-{
-	[name release];
-	[email release];
-	[uri release];
-	[super dealloc];
-}
 
 
 @end

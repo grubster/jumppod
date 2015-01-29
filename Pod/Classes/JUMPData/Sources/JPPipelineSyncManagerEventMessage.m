@@ -20,12 +20,12 @@
 #pragma mark -
 #pragma mark Init Methods. 
 +(id)initWithEntityKey:(NSString*)anKey withParameters:(NSMutableArray*)arrayOfParameters {
-	return [[[self alloc] initWithEntityKey:anKey withParameters:arrayOfParameters withFuture:nil] autorelease];
+	return [[self alloc] initWithEntityKey:anKey withParameters:arrayOfParameters withFuture:nil];
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 +(id)initWithEntityKey:(NSString*)anKey withParameters:(NSMutableArray*)arrayOfParameters withFuture:(id<JPPipelineFuture>)anFuture {
-	return [[[self alloc] initWithEntityKey:anKey withParameters:arrayOfParameters withFuture:anFuture] autorelease];
+	return [[self alloc] initWithEntityKey:anKey withParameters:arrayOfParameters withFuture:anFuture];
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
@@ -51,10 +51,5 @@
 #pragma mark -
 #pragma mark Memory Management Methods. 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
-- (void) dealloc {
-	[syncEntityKey release], syncEntityKey = nil;
-	[parameters release], parameters = nil;
-	[super dealloc];
-}
 
 @end

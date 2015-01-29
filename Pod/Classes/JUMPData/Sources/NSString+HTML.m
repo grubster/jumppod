@@ -117,11 +117,9 @@
 	} while (![scanner isAtEnd]);
 
 	// Cleanup
-	[scanner release];
 	
 	// Decode HTML entities and return
 	NSString *retString = [result stringByDecodingHTMLEntities];
-	[result release];
 	return retString;
 	
 }
@@ -184,9 +182,7 @@
 	} while (![scanner isAtEnd]);
 	
 	// Cleanup & return
-	[scanner release];
 	NSString *retString = [NSString stringWithString:result];
-	[result release];
 	return retString;
 	
 }
@@ -225,11 +221,9 @@
 	}
 	
 	// Cleanup
-	[scanner release];
 	
 	// Return
 	NSString *retString = [NSString stringWithString:result];
-	[result release];
 	return retString;
 	
 }

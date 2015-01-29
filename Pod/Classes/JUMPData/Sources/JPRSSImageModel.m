@@ -22,14 +22,5 @@
 // Properties.
 @synthesize link, title, url, description, height, width;
 
-- (void) dealloc {
-	[link release];
-	[title release];
-	[url release];
-	[description release];
-	[height release];
-	[width release];
-	[super dealloc];
-}
 
 @end

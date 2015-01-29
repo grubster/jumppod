@@ -57,14 +57,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	self.error = nil;
-    self.state = nil;
-	[stateStack release];
-	[tokeniser release];
-	[super dealloc];
-}
-
 #pragma mark Methods
 
 - (NSString*)tokenName:(sbjson_token_t)token {
@@ -168,12 +160,11 @@
 }
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    @try {
         [tokeniser appendData:data_];
         
         for (;;) {
-            
+            @autoreleasepool {
+
             if ([state isError])
                 return SBJsonStreamParserError;
             
@@ -252,13 +243,10 @@
                     }
                     break;
             }
+            }
         }
-        return SBJsonStreamParserComplete;
 
-    }
-    @finally {
-        [pool drain];
-    }
+        return SBJsonStreamParserComplete;
 }
 
 @end

@@ -25,7 +25,7 @@
  * JPDataPopulator is used to populate Model Objects with Data contained in dictionaries.
  */
 @interface JPDataPopulator : NSObject {
-	id<JPDataPopulatorDelegate> delegate;
+	id<JPDataPopulatorDelegate> __weak delegate;
 }
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
@@ -34,7 +34,7 @@
 /**
  * 
  */
-@property (assign) id<JPDataPopulatorDelegate> delegate;
+@property (weak) id<JPDataPopulatorDelegate> delegate;
 
 //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// //// 
 #pragma mark -

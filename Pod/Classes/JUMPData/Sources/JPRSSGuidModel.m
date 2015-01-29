@@ -22,10 +22,5 @@
 // Properties.
 @synthesize value, permaLink;
 
-- (void) dealloc {
-	[value release];
-	[permaLink release];
-	[super dealloc];
-}
 
 @end

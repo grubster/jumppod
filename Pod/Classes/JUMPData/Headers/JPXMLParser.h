@@ -64,7 +64,7 @@ typedef struct JPXMLParserElement {
 @interface JPXMLParser : NSXMLParser <NSXMLParserDelegate> {
     NSError * __autoreleasing *errorPointer;
 	
-	id              _parsedObject;
+	id              __weak _parsedObject;
 	
 	NSMutableArray* _objectStack;
 	NSMutableArray* _objectStackName;
@@ -73,7 +73,7 @@ typedef struct JPXMLParserElement {
 /** 
  * Will return an <tt>NSDictionary</tt> or <tt>NSArray</tt> after successful parsing (After the <tt>parse</tt> method is executed).
  */
-@property (nonatomic, readonly) id    parsedObject;
+@property (weak, nonatomic, readonly) id    parsedObject;
 
 /**
  * Parse an XML from a file to an <tt>NSDictionary</tt> or <tt>NSArray</tt>.

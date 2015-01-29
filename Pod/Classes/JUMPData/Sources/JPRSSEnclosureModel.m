@@ -22,11 +22,5 @@
 // Properties.
 @synthesize length, type, url;
 
-- (void) dealloc {
-	[length release];
-	[type release];
-	[url release];
-	[super dealloc];
-}
 
 @end

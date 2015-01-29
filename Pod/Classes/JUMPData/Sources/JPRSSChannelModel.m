@@ -20,29 +20,6 @@
 @synthesize pubDate, rating, ttl, webMaster, category, cloud, image, textInput, skipDays, skipHours, item;
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
-- (void) dealloc {
-	[description release];
-	[link release];
-	[title release];
-	[copyright release];
-	[docs release];
-	[generator release];
-	[language release];
-	[lastBuildDate release];
-	[managingEditor release];
-	[pubDate release];
-	[rating release];
-	[ttl release];
-	[webMaster release];
-	[category release];
-	[cloud release];
-	[image release];
-	[textInput release];
-	[skipDays release];
-	[skipHours release];
-	[item release];
-	[super dealloc];
-}
 
 
 @end

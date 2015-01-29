@@ -19,7 +19,7 @@
 #pragma mark Init Methods
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 +(JPAtomFeedModel*)initWithDictionary:(NSDictionary*)anDictionary {
-	JPAtomFeedModel *instance = [[JPAtomFeedModel new] autorelease];
+	JPAtomFeedModel *instance = [JPAtomFeedModel new];
 	
 	// Load.
 	instance = [instance loadFeedFromDictionary:anDictionary];
@@ -29,22 +29,6 @@
 }
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
-- (void) dealloc {
-	[feedId release];
-	[xmlns release];
-	[title release];
-	[subtitle release];
-	[updated release];
-	[icon release];
-	[logo release];
-	[rights release];
-	[links release];
-	[entry release];
-	[author release];
-	[category release];
-	[contributor release];
-	[super dealloc];
-}
 
 /////// ////// ////// ////// ////// ////// ////// ////// ////// /////// ////// ////// ////// ////// ////// ////// ////// ////// 
 #pragma mark -
@@ -62,7 +46,7 @@
 		 convertToClass == [JPAtomContentModel class] || convertToClass == [JPAtomSummaryModel class] ) {
 		
 		// Init new object.
-		converted = [[convertToClass new] autorelease];
+		converted = [convertToClass new];
 		
 		// String?
 		if ( [object isKindOfClass:[NSString class]] ) {
