@@ -480,7 +480,7 @@
 			// Loop on DB Actions.
 			for ( NSString *action in actions ) {
                     NSInteger allDataCount = [allData count];
-                    NSInteger objectDataCount = [object performSelector:@selector(count:) withObject:nil];
+                    NSInteger objectDataCount = [object count];
                     Debug(@"Processing %ld records from Server Key: %@", (long)allDataCount, serverDataKey);
                     Debug(@"Exist %ld records in the Entity: %@", (long)objectDataCount, [self getConfigModelForKey:serverDataKey].toEntity);
                     
