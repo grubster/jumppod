@@ -24,7 +24,7 @@
 @property (retain) Class propertyClass;
 @property (retain) id propertyValue;
 @property (retain) NSString *propertyName;
-@property (assign) NSData *propertyEncode;
+@property (retain) NSData *propertyEncode;
 
 -(BOOL)propertyIsAnObject;
 
