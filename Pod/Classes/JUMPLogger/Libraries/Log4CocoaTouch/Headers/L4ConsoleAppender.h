@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "L4WriterAppender.h"
+#import "L4Properties.h"
 
 /**
  * An implementation of L4Appender that writes messages to the console; either stdout or stderr.

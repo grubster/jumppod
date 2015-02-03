@@ -9,7 +9,7 @@ static NSData *lineBreakChar;
 
 + (void) initialize
 {
-    lineBreakChar = [[@"\n" dataUsingEncoding: NSASCIIStringEncoding allowLossyConversion: YES] retain];
+    lineBreakChar = [@"\n" dataUsingEncoding: NSASCIIStringEncoding allowLossyConversion: YES];
 }
 
 - (id) init
@@ -42,17 +42,12 @@ static NSData *lineBreakChar;
 
 - (id) initWithLayout:(L4Layout *)aLayout fileHandle:(NSFileHandle *)aFileHandle
 {
-	[self init]; // call designated initializer
-	fileHandle= [aFileHandle retain];
+	if (!(self = [self init])) return nil; // call designated initializer
+	fileHandle= aFileHandle;
 	[self setLayout: aLayout];
 	return self;
 }
 
-- (void) dealloc
-{
-	[fileHandle release];
-	[super dealloc];
-}
 
 - (BOOL) immediateFlush
 {
@@ -113,9 +108,8 @@ static NSData *lineBreakChar;
     @synchronized(self) {
         if (fileHandle != fh) {
             [self closeWriter];
-            [fileHandle release];
             fileHandle = nil;
-            fileHandle = [fh retain];
+            fileHandle = fh;
         }
     }
 }

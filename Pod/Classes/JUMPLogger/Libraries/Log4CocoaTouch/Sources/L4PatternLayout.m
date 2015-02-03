@@ -33,7 +33,7 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
 			buf = L4PatternLayoutDefaultConversionPattern;
         }
 		[self setConversionPattern: buf];
-		tokenArray = [[NSMutableArray alloc] initWithCapacity: 3];
+		self->tokenArray = [[NSMutableArray alloc] initWithCapacity: 3];
     }
     
     return self;
@@ -48,13 +48,10 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
 
 - (void)dealloc
 {
-	[conversionPattern release];
 	conversionPattern = nil;
 	
-	[tokenArray release];
-	tokenArray = nil;
+	self->tokenArray = nil;
 	
-	[super dealloc];
 }
 
 - (NSString*)conversionPattern
@@ -66,12 +63,11 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
 {
     @synchronized(self) {
         if (![conversionPattern isEqualToString: cp]) {
-            [conversionPattern release];
             conversionPattern = nil;
-            conversionPattern = [cp retain];
+            conversionPattern = cp;
             
-            // since conversion pattern changed, reset _tokenArray
-            [tokenArray removeAllObjects];
+            // since conversion pattern changed, reset _self.tokenArray
+            [self->tokenArray removeAllObjects];
         }
     }
 }
@@ -116,22 +112,24 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
         
         // let delegate handle it first
         if (parserDelegate != nil && [parserDelegate respondsToSelector: @selector(parseConversionPattern:intoArray:)]) {
-            if ([tokenArray count] <= 0) {
-                [parserDelegate parseConversionPattern: conversionPattern intoArray: &tokenArray];
+            if ([self->tokenArray count] <= 0) {
+                NSMutableArray *cTokenArray = [tokenArray copy];
+                [parserDelegate parseConversionPattern: conversionPattern intoArray: &cTokenArray];
+                self->tokenArray = cTokenArray;
             }
             
-            for (index = 0; index < [tokenArray count]; index++) {
+            for (index = 0; index < [self->tokenArray count]; index++) {
                 // reset converted string state to make sure we don't use an old value
                 convertedString = [NSString string];
                 
                 // let delegate handle it first
                 if (converterDelegate != nil && [converterDelegate respondsToSelector: @selector(convertTokenString:withLoggingEvent:intoString:)]) {
-                    handled = [converterDelegate convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                    handled = [converterDelegate convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                     if (!handled) {
-                        [self convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                        [self convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                     }
                 } else {
-                    [self convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                    [self convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                 }
                 
                 // only append string if it isn't nil
@@ -140,22 +138,24 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
                 }
             }
         } else {
-            if ([tokenArray count] <= 0) {
-                [self parseConversionPattern: conversionPattern intoArray: &tokenArray];
+            if ([self->tokenArray count] <= 0) {
+                NSMutableArray *cTokenArray = [self->tokenArray copy];
+                [self parseConversionPattern: conversionPattern intoArray: &cTokenArray];
+                self->tokenArray = cTokenArray;
             }
             
-            for (index = 0; index < [tokenArray count]; index++) {
+            for (index = 0; index < [self->tokenArray count]; index++) {
                 // reset converted string state to make sure we don't use an old value
                 convertedString = nil;
                 
                 // let delegate handle it first
                 if (converterDelegate != nil && [converterDelegate respondsToSelector: @selector(convertTokenString:withLoggingEvent:intoString:)]) {
-                    handled = [converterDelegate convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                    handled = [converterDelegate convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                     if (!handled) {
-                        [self convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                        [self convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                     }
                 } else {
-                    [self convertTokenString: [tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
+                    [self convertTokenString: [self->tokenArray objectAtIndex: index] withLoggingEvent: event intoString: &convertedString];
                 }
                 
                 // only append string if it isn't nil
@@ -168,7 +168,7 @@ NSString* const L4InvalidBraceClauseException = @"L4InvalidBraceClauseException"
 	return formattedString;
 }
 
-- (void)parseConversionPattern: (NSString*)cp intoArray: (NSMutableArray**)tokenStringArray
+- (void)parseConversionPattern: (NSString*)cp intoArray: (NSMutableArray **)tokenStringArray
 {
 	NSScanner*				scanner = nil;
 	NSCharacterSet*			percentCharacterSet = nil;

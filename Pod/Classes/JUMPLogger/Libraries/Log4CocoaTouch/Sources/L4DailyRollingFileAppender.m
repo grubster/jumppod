@@ -5,6 +5,7 @@
 #import "L4DailyRollingFileAppender.h"
 #import "L4Layout.h"
 #import "L4LogLog.h"
+
 #import <math.h>
 
 /**
@@ -47,10 +48,8 @@
 
 - (void)dealloc
 {
-	[lastRolloverDate release];
 	lastRolloverDate = nil;
 	
-	[super dealloc];
 }
 
 - (L4RollingFrequency)rollingFrequency
@@ -120,9 +119,8 @@
 {
     @synchronized(self) {
         if ((NSDate*)lastRolloverDate != date) {
-            [lastRolloverDate release];
             lastRolloverDate = nil;
-            lastRolloverDate = [date retain];
+            lastRolloverDate = date;
         }
     }
 }
@@ -150,7 +148,7 @@
         }
         
         // save a reference to the last rollover date, before we possible change it
-        tempLastRolloverDate = [[self lastRolloverDate] retain];
+        tempLastRolloverDate = [self lastRolloverDate];
         
         // determine if we need to rollover now
         switch (rollingFrequency) {
@@ -245,7 +243,6 @@
                 }
             }
             
-            [tempLastRolloverDate release];
             tempLastRolloverDate = nil;
             
             // generate the new rollover log file name
@@ -265,7 +262,6 @@
             [self setupFile];
         }
         
-        [tempLastRolloverDate release];
         tempLastRolloverDate = nil;
     }
 }

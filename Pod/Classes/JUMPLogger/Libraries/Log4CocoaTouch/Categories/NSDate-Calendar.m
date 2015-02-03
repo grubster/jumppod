@@ -114,7 +114,7 @@
 
 -(NSString *)descriptionWithCalendarFormat:(NSString *)formatString {
     // Create an date formatter.
-    NSDateFormatter *anFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *anFormatter = [[NSDateFormatter alloc] init];
     // Format.
     [anFormatter setDateFormat:formatString];
     // Return formatted.
@@ -125,7 +125,6 @@
   NSDateComponents *adjustmentComps = [[NSDateComponents alloc] init];
   [adjustmentComps setDay:-([self weekday]-1)];
   NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:adjustmentComps toDate:self options:0];
-  [adjustmentComps release];
   return newDate;
 }
 
@@ -138,7 +137,6 @@
   [adjustmentComps setMinute:minutes];
   [adjustmentComps setSecond:seconds];
   NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:adjustmentComps toDate:self options:0];
-  [adjustmentComps release];
   return newDate;
 }
 

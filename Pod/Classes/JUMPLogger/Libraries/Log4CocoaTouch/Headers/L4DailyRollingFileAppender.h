@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "L4FileAppender.h"
 #import "NSDate-Calendar.h"
+#import "L4Properties.h"
 
 /**
  * The accepted constants for L4DailyRollingFileAppenderFrequency's <code>setFrequency:</code> method.

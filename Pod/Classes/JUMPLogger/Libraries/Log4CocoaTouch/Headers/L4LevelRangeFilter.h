@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "L4Filter.h"
+#import "L4Properties.h"
 
 @class L4Level;
 

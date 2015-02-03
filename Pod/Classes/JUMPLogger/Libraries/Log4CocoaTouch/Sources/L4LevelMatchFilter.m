@@ -37,7 +37,7 @@
 		
 		if (levelName) {
 			// Returns nil if no level with specified name is found
-			levelToMatch = [[L4Level levelWithName:levelName] retain];
+			levelToMatch = [L4Level levelWithName:levelName];
 			
 			if (levelToMatch == nil) {
 				[NSException raise:L4PropertyMissingException 
@@ -52,11 +52,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[levelToMatch release];
-	[super dealloc];
-}
 
 - (BOOL) acceptOnMatch
 {

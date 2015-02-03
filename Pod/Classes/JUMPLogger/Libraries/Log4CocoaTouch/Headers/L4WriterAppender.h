@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "L4AppenderProtocols.h"
 #import "L4AppenderSkeleton.h"
-
+#import "L4Properties.h"
 /**
  * An extension of L4Appender that knows how to append by writing to a filehandle.
  */

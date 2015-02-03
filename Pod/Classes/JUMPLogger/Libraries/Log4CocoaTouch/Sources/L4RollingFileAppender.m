@@ -78,10 +78,6 @@ const unsigned long long kL4RollingFileAppenderDefaultMaxFileSize = (1024 * 1024
 	return self;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
 - (unsigned int)maxBackupIndex
 {

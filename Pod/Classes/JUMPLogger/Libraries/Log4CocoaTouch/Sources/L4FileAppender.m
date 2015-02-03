@@ -22,10 +22,9 @@
         NSString *buf = [[initProperties stringForKey: @"File"] lowercaseString];
         if ( buf == nil ) {
             [L4LogLog error: @"Invalid filename."];
-            [self release];
             return nil;
         }
-        fileName = [buf retain];
+        fileName = buf;
         
         // Support for appender.Append in properties configuration file
         append = YES;
@@ -50,7 +49,7 @@
 	if (self != nil)
 	{
 		[self setLayout: aLayout];
-		fileName = [aName retain];
+		fileName = aName;
 		append = flag;
 		[self setupFile];
 	}
@@ -59,10 +58,8 @@
 
 - (void)dealloc
 {
-	[fileName release];
 	fileName = nil;
 	
-	[super dealloc];
 }
 
 - (void)setupFile
@@ -72,7 +69,6 @@
 	@synchronized(self) {
         if (fileName == nil || [fileName length] <= 0) {
             [self closeFile];
-            [fileName release];
             fileName = nil;
             [self setFileHandle: nil];
         } else {
@@ -124,7 +120,6 @@
         [fileHandle closeFile];
         
         // Deallocate the file handle because trying to read from or write to a closed file raises exceptions.  Sending messages to nil objects are no-ops.
-        [fileHandle release];
         fileHandle = nil;
     }
 }

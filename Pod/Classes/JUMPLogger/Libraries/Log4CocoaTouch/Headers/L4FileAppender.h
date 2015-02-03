@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import "L4WriterAppender.h"
+#import "L4Properties.h"
 
 @interface L4FileAppender : L4WriterAppender
 {

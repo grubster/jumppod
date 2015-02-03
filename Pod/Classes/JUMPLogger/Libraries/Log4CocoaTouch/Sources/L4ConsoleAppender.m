@@ -23,12 +23,12 @@
 /* ********************************************************************* */
 + (L4ConsoleAppender *) standardOutWithLayout: (L4Layout *)aLayout
 {
-	return [[[L4ConsoleAppender alloc] initTarget: YES withLayout: aLayout] autorelease];
+	return [[L4ConsoleAppender alloc] initTarget: YES withLayout: aLayout];
 }
 
 + (L4ConsoleAppender *) standardErrWithLayout: (L4Layout *)aLayout
 {
-	return [[[L4ConsoleAppender alloc] initTarget: NO withLayout: aLayout] autorelease];
+	return [[L4ConsoleAppender alloc] initTarget: NO withLayout: aLayout];
 }
 
 /* ********************************************************************* */
@@ -92,8 +92,7 @@
     @synchronized(self) {
         if(!isStandardOut || (fileHandle == nil)) {
             isStandardOut = YES;
-            [fileHandle autorelease];
-            fileHandle = [[NSFileHandle fileHandleWithStandardOutput] retain];
+            fileHandle = [NSFileHandle fileHandleWithStandardOutput];
         }
     }
 }
@@ -103,8 +102,7 @@
     @synchronized(self) {
         if(isStandardOut || (fileHandle == nil)) {
             isStandardOut = NO;
-            [fileHandle autorelease];
-            fileHandle = [[NSFileHandle fileHandleWithStandardError] retain];
+            fileHandle = [NSFileHandle fileHandleWithStandardError];
         }
     }
 }

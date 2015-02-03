@@ -13,11 +13,6 @@
 	return [super init];
 }
 
-- (void)dealloc
-{
-    [next release];
-    [super dealloc];
-}
 
 - (L4FilterResult) decide: (L4LoggingEvent *) event
 {
@@ -33,8 +28,7 @@
 {
     @synchronized(self) {
         if( next != newNext ) {
-            [next autorelease];
-            next = [newNext retain];
+            next = newNext;
         }
     }
 }

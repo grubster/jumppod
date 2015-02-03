@@ -42,12 +42,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[minimumLevelToMatch release];
-	[maximumLevelToMatch release];
-	[super dealloc];
-}
 
 - (BOOL) acceptOnMatch
 {

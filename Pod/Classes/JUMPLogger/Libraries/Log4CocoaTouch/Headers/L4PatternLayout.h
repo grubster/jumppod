@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "L4Layout.h"
+#import "L4Logger.h"
+
 
 /**
  *Defines the default conversion pattern for <code>L4PatternLayout</code> objects created with the <code>init</code> method
@@ -230,9 +232,8 @@ extern NSString* const L4InvalidBraceClauseException;
 	NSString*			conversionPattern; /**< conversionPattern*/
 	id					parserDelegate; /**< parserDelegate*/
 	id					converterDelegate; /**< converterDelegate*/
-
+    NSMutableArray* tokenArray; /**< tokenArray*/
 	@private
-	NSMutableArray*		tokenArray; /**< tokenArray*/
 }
 
 /**
