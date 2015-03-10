@@ -47,7 +47,7 @@
     // See this article for more info About Core Data and Multithread:
     // http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/CoreData/Articles/cdConcurrency.html
     //
-    JPDBManager *__weak _backgroundThreadDatabaseManager;
+    JPDBManager *_backgroundThreadDatabaseManager;
     
     // Main thread Database Manager is stored here, so we can merge the changes between the two Database Manager later.
     JPDBManager *_mainThreadDatabaseManager;
@@ -75,7 +75,7 @@
  * allows you to acess this <b>Database Manager</b>. You always should perform <b>Database Operations</b>
  * using this <b>Database Manager</b>.
  */
-@property(weak, readonly) JPDBManager* databaseManager;
+@property(readonly) JPDBManager* databaseManager;
 
 /**
  * Progress of current running task. This property contain values from 0 to 100 
