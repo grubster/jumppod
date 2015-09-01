@@ -24,7 +24,6 @@ Pod::Spec.new do |s|
     jpl.source_files = 'Pod/Classes/JUMPLogger/{Sources,Headers,Libraries}/**/*.{h,m}'
     jpl.public_header_files = 'Pod/Classes/JUMPLogger/{Headers,Libraries}/**/*.h'
     jpl.dependency 'JUMP/JUMPCore'
-    jpl.dependency 'NSLogger', '1.5'
   end
 
   s.subspec 'JUMPDatabase' do |jpd|
