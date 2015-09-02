@@ -60,6 +60,9 @@
 		18BCB7041330F34200986778 /* JUMPLoggerConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 18BCB6871330EC3700986778 /* JUMPLoggerConfig.h */; };
 		18BCB8081330FC7A00986778 /* JPLoggerAbstractFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 18BCB8061330FC7A00986778 /* JPLoggerAbstractFactory.h */; };
 		18BCB8311331001600986778 /* JPLoggerAbstractFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCB8071330FC7A00986778 /* JPLoggerAbstractFactory.m */; };
+		89D7ACC11B9792C700370219 /* JPLoggerSwiftBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 89D7ACC01B9792C700370219 /* JPLoggerSwiftBridge.h */; };
+		89D7ACC31B9792CF00370219 /* JPLoggerSwiftBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D7ACC21B9792CF00370219 /* JPLoggerSwiftBridge.m */; };
+		89D7ACC51B9792E200370219 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D7ACC41B9792E200370219 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +119,9 @@
 		18BCB6881330EC3700986778 /* JUMPLoggerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JUMPLoggerConfig.m; path = Sources/JUMPLoggerConfig.m; sourceTree = "<group>"; };
 		18BCB8061330FC7A00986778 /* JPLoggerAbstractFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPLoggerAbstractFactory.h; path = Headers/JPLoggerAbstractFactory.h; sourceTree = "<group>"; };
 		18BCB8071330FC7A00986778 /* JPLoggerAbstractFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPLoggerAbstractFactory.m; path = Sources/JPLoggerAbstractFactory.m; sourceTree = "<group>"; };
+		89D7ACC01B9792C700370219 /* JPLoggerSwiftBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPLoggerSwiftBridge.h; sourceTree = "<group>"; };
+		89D7ACC21B9792CF00370219 /* JPLoggerSwiftBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPLoggerSwiftBridge.m; sourceTree = "<group>"; };
+		89D7ACC41B9792E200370219 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89D7ACC51B9792E200370219 /* CoreGraphics.framework in Frameworks */,
 				18647738132FF63E002CBD59 /* Foundation.framework in Frameworks */,
 				18647761132FF6B4002CBD59 /* libLog4CocoTouch.a in Frameworks */,
 				18AA974B1332A97700C59F0E /* CFNetwork.framework in Frameworks */,
@@ -168,6 +175,7 @@
 		18647736132FF634002CBD59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89D7ACC41B9792E200370219 /* CoreGraphics.framework */,
 				187E1F7A140FCAC0003D1652 /* UIKit.framework */,
 				18647737132FF63E002CBD59 /* Foundation.framework */,
 				18AA974A1332A97700C59F0E /* CFNetwork.framework */,
@@ -179,6 +187,7 @@
 		1864773B132FF661002CBD59 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				89D7ACC01B9792C700370219 /* JPLoggerSwiftBridge.h */,
 				1864773D132FF661002CBD59 /* JPLogger.h */,
 				18647746132FF665002CBD59 /* Interfaces */,
 				18647740132FF661002CBD59 /* JPLoggerShortcuts.h */,
@@ -200,6 +209,7 @@
 		1864774C132FF677002CBD59 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				89D7ACC21B9792CF00370219 /* JPLoggerSwiftBridge.m */,
 				18BCB80A1330FCA200986778 /* Factories */,
 				1879DD2C1331102100CF3ED8 /* Log4Cocoa */,
 				1879DDB51331157100CF3ED8 /* NSLog */,
@@ -293,6 +303,7 @@
 				18647753132FF69C002CBD59 /* JPLog4CocoaLogger.h in Headers */,
 				18BCB8081330FC7A00986778 /* JPLoggerAbstractFactory.h in Headers */,
 				1879DF8F13312FC800CF3ED8 /* JPLogNSLogLogger.h in Headers */,
+				89D7ACC11B9792C700370219 /* JPLoggerSwiftBridge.h in Headers */,
 				1879DF9013312FC800CF3ED8 /* JPNSLogFactory.h in Headers */,
 				18242F32133A369300D82D0D /* JPLoggerMetadata.h in Headers */,
 			);
@@ -407,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18647750132FF68F002CBD59 /* JPLog4CocoaFactory.m in Sources */,
+				89D7ACC31B9792CF00370219 /* JPLoggerSwiftBridge.m in Sources */,
 				18647751132FF68F002CBD59 /* JPLog4CocoaLogger.m in Sources */,
 				188802481332A41900FA965C /* L4NSLoggerAppender.m in Sources */,
 				18BCB8311331001600986778 /* JPLoggerAbstractFactory.m in Sources */,
