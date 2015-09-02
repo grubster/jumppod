@@ -19,5 +19,6 @@
 +(void)LogBool:(BOOL)arg;
 +(void)LogIndexPath:(NSIndexPath*)arg;
 +(void)LogWhere;
++(void)Error:(NSString *)message, ...;
 
 @end

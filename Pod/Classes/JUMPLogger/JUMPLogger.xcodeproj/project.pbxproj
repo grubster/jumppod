@@ -209,13 +209,13 @@
 		1864774C132FF677002CBD59 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				89D7ACC21B9792CF00370219 /* JPLoggerSwiftBridge.m */,
 				18BCB80A1330FCA200986778 /* Factories */,
 				1879DD2C1331102100CF3ED8 /* Log4Cocoa */,
 				1879DDB51331157100CF3ED8 /* NSLog */,
 				186477D913300C10002CBD59 /* JPLoggerShortcuts.m */,
 				18242F31133A369300D82D0D /* JPLoggerMetadata.m */,
 				18BCB6881330EC3700986778 /* JUMPLoggerConfig.m */,
+				89D7ACC21B9792CF00370219 /* JPLoggerSwiftBridge.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";

@@ -39,5 +39,10 @@
     Debug( @"[%@ %@]", NSStringFromClass( [self class] ), NSStringFromSelector( _cmd ) );
 }
 
++(void)Error:(NSString *)message, ... {
+    va_list args;
+    va_start(args, message);
+    ErrorExceptionTo( nil, nil, message, args);
+}
 
 @end
