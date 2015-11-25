@@ -51,6 +51,7 @@
 	NSString *userAgent;
 	NSString *requestMethod;
 	NSURL *transportURL;
+    NSURLRequestCachePolicy cachePolicy;
 	
 	// Settings.
 	NSTimeInterval timeOutSeconds;
@@ -86,6 +87,11 @@
  * HTTP URL to process this message.
  */
 @property (copy)   NSURL *transportURL;
+
+/**
+ * Cache Policy.
+ */
+@property (assign)   NSURLRequestCachePolicy cachePolicy;
 
 /**
  * HTML Content-Type of this message.

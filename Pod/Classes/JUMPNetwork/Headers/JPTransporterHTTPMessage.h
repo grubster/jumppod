@@ -43,4 +43,9 @@
  */
 -(NSString*)contentType;
 
+/**
+ * Cache Policy To Use.
+ */
+-(NSURLRequestCachePolicy*)cachePolicy;
+
 @end

@@ -74,8 +74,11 @@
 	// Assign HTTP Method.
     [urlRequester setHTTPMethod:[e requestMethod]];
     
+    [urlRequester setCachePolicy:[e cachePolicy]];
+    
 	// Time out for connection.
     [urlRequester setTimeoutInterval:[e timeOutSeconds]];
+
 
 	// Add Data to HTTP Request.
     [urlRequester setValue:[e userAgent] forHTTPHeaderField:@"User-Agent"];

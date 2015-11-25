@@ -35,6 +35,8 @@
         self.contentType     = @"text/plain";
 
         self.requestMethod = @"POST";
+        
+        self.cachePolicy = NSURLRequestUseProtocolCachePolicy;
     }
     return self;
 }
